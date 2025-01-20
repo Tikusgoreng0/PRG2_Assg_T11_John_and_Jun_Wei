@@ -8,6 +8,25 @@
 // Jun Wei: 1, 4, 7 & 8
 
 using GodsPlan;
+using System.Collections.Generic;
+
+void DisplayMenu()
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("Welcome to Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+    Console.WriteLine("1. List All Flights");
+    Console.WriteLine("2. List Boarding Gates");
+    Console.WriteLine("3. Assign a Boarding Gate to a Flight");
+    Console.WriteLine("4. Create Flight");
+    Console.WriteLine("5. Display Airline Flights");
+    Console.WriteLine("6. Modify Flight Details");
+    Console.WriteLine("7. Display Flight Schedule");
+    Console.WriteLine("0. Exit");
+
+    Console.WriteLine("\nPlease select your option:");
+}
+
 //Task 1
 //----------------------- Jun Wei's Code ----------------------------
 static void LoadFiles(Dictionary<string, Airline> airline, Dictionary<string, BoardingGate> boardingGate)
@@ -119,6 +138,9 @@ void InitData(Dictionary<string, Flight> flights)
 
 void DisplayFlight(Dictionary<string, Flight> flights, Dictionary<string, Airline> airline)
 {
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Flights for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
     Console.WriteLine("{0, -15} {1, -20} {2, -18} {3} {4}",
         "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival");
 
@@ -152,3 +174,10 @@ InitData(flights);
 
 DisplayFlight(flights, airline);
 //----------------------- End of John's Code ---------------------------
+
+// Task 4
+
+
+// Task 5
+//----------------------- John's Code ----------------------------
+Console.Write("Please enter your ");
