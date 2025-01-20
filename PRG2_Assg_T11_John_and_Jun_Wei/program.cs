@@ -26,7 +26,7 @@ static void LoadFiles(Dictionary<string, Airline> airline, Dictionary<string, Bo
             {
                 string code = daddy[1];
                 string name = daddy[0];
-                Airline airlineobj = new Airline(code, name);
+                Airline airlineobj = new Airline(name, code);
                 // Add the Airline object to the dictionary using its code as the key
                 if (!airline.ContainsKey(code))
                 {
@@ -89,7 +89,7 @@ void InitData(Dictionary<string, Flight> flights)
 
         while ((please = work.ReadLine()) != null)
         {
-            // Splits commas and checks the special request code to make a class
+            // Splits commas and checks the special request code to make a object
             string[] daddy = please.Split(",");
             if (daddy[4] == "NORM")
             {
@@ -127,16 +127,19 @@ void DisplayFlight(Dictionary<string, Flight> flights, Dictionary<string, Airlin
         Flight tempFlight = crashOut.Value;
 
         // Checks airline name based on flight number
+        string airlineName = "";
         foreach (KeyValuePair<string, Airline> dietzNutz in airline)
         {
             Airline tempAirline = dietzNutz.Value;
             if (tempFlight.FlightNumber.Contains(tempAirline.Code))
             {
-                string airlineName = tempAirline.Name;
-                Console.WriteLine("{0, -15} {1, -20} {2, -18} {3} {4}",
-                    tempFlight.FlightNumber, airlineName, tempFlight.Origin, tempFlight.Destination, tempFlight.ExpectedTime);
+                airlineName = tempAirline.Name;
+                break;
             }
         }
+
+        Console.WriteLine("{0, -15} {1, -20} {2, -18} {3} {4}",
+            tempFlight.FlightNumber, airlineName, tempFlight.Origin, tempFlight.Destination, tempFlight.ExpectedTime);
     }
 }
 
