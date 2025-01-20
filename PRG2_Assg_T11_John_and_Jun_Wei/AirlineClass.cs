@@ -18,6 +18,12 @@ namespace GodsPlan
         public Airline() { }
 
         // Constructors
+        public Airline(string name, string code)
+        {
+            Name = name;
+            Code = code;
+        }
+
         public Airline(string name, string code, Dictionary<string, Flight> flights)
         {
             Name = name;

@@ -5,9 +5,80 @@
 //==========================================================
 
 // John: 2, 3, 5, 6, & 9
+// Jun Wei: 1, 4, 7 & 8
 
 using GodsPlan;
+//Task 1
+//----------------------- Jun Wei's Code ----------------------------
+static void LoadFiles(Dictionary<string, Airline> airline, Dictionary<string, BoardingGate> boardingGate)
+{
+    using (StreamReader work = new StreamReader("airlines.csv"))
+    {
+        // Skip header
+        string? please = work.ReadLine();
 
+        while ((please = work.ReadLine()) != null)
+        {
+            //string initialise
+            string[] daddy = please.Split(",");
+            //ensure data has the expected columns
+            if (daddy.Length >= 2)
+            {
+                string code = daddy[1];
+                string name = daddy[0];
+                Airline airlineobj = new Airline(code, name);
+                // Add the Airline object to the dictionary using its code as the key
+                if (!airline.ContainsKey(code))
+                {
+                    airline.Add(code, airlineobj);
+                }
+                else
+                {
+                    Console.WriteLine($"Airline with code {code} already exists in the dictionary.");
+                }
+            }
+        }
+    }
+    using (StreamReader work = new StreamReader("boardinggates.csv"))
+    {
+        // Skip header
+        string? please = work.ReadLine();
+
+        while ((please = work.ReadLine()) != null)
+        {
+            //string initialise
+            string[] babygrunk = please.Split(",");
+            //ensure data has the expected columns
+            if (babygrunk.Length >= 4)
+            {
+                string gate = babygrunk[0];
+                bool DDJB = Convert.ToBoolean(babygrunk[1]);
+                bool CFFT = Convert.ToBoolean(babygrunk[2]);
+                bool LWTT = Convert.ToBoolean(babygrunk[3]);
+                BoardingGate boardingobj = new BoardingGate(gate, DDJB, CFFT, LWTT);
+                // Add the boardingGate object to the dictionary using its code as the key
+                if (!boardingGate.ContainsKey(gate))
+                {
+                    boardingGate.Add(gate, boardingobj);
+                }
+                else
+                {
+                    Console.WriteLine($"BoardingGate with code {gate} already exists in the dictionary.");
+                }
+            }
+        }
+    }
+}
+
+// Program
+//Make the dictionaries to store data
+Dictionary<string, Airline> airline = new Dictionary<string, Airline>();
+Dictionary<string, BoardingGate> boardingGate = new Dictionary<string, BoardingGate>();
+LoadFiles(airline, boardingGate);
+
+//----------------------- End of Jun Wei's Code ---------------------------
+
+// Task 2
 //----------------------- John's Code ----------------------------
 void InitData(Dictionary<string, Flight> flights)
 {
@@ -46,20 +117,26 @@ void InitData(Dictionary<string, Flight> flights)
 
 //-----------------------------------------------------------------
 
-void DisplayFlight(Dictionary<string, Flight> flights)
+void DisplayFlight(Dictionary<string, Flight> flights, Dictionary<string, Airline> airline)
 {
-    Console.WriteLine("{0, -15} {1, -20} {2, -18} {3}",
-        "Flight Number", "Origin", "Destination", "Expected Departure/Arrival");
+    Console.WriteLine("{0, -15} {1, -20} {2, -18} {3} {4}",
+        "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival");
 
     foreach (KeyValuePair<string, Flight> crashOut in flights)
     {
         Flight tempFlight = crashOut.Value;
 
-        string? airline;
-        if (tempFlight.FlightNumber.Substring(0, 2) == "SQ")
-
-        Console.WriteLine("{0, -15} {1, -20} {2, -18} {3}",
-            tempFlight.FlightNumber, tempFlight.Origin, tempFlight.Destination, tempFlight.ExpectedTime.ToString("h:mmtt"));
+        // Checks airline name based on flight number
+        foreach (KeyValuePair<string, Airline> dietzNutz in airline)
+        {
+            Airline tempAirline = dietzNutz.Value;
+            if (tempFlight.FlightNumber.Contains(tempAirline.Code))
+            {
+                string airlineName = tempAirline.Name;
+                Console.WriteLine("{0, -15} {1, -20} {2, -18} {3} {4}",
+                    tempFlight.FlightNumber, airlineName, tempFlight.Origin, tempFlight.Destination, tempFlight.ExpectedTime);
+            }
+        }
     }
 }
 
@@ -70,8 +147,5 @@ void DisplayFlight(Dictionary<string, Flight> flights)
 Dictionary<string, Flight> flights = new Dictionary<string, Flight>();
 InitData(flights);
 
-DisplayFlight(flights);
-
-Console.WriteLine("No problems");
-
+DisplayFlight(flights, airline);
 //----------------------- End of John's Code ---------------------------
