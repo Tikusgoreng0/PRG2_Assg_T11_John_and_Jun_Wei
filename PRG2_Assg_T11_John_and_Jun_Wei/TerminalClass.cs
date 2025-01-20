@@ -28,7 +28,7 @@ namespace GodsPlan
             GateFees = gateFees;
         }
 
-        // Methodsa
+        // Methods
         public bool AddAirline(Airline airline)
         {
             throw new NotImplementedException();

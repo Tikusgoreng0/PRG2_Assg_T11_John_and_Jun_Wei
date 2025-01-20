@@ -13,7 +13,7 @@ using System.Collections.Generic;
 void DisplayMenu()
 {
     Console.WriteLine("=============================================");
-    Console.WriteLine("Welcome to Changi Airport Terminal 5");
+    Console.WriteLine("Welcome to Changi Airport Terminal a5");
     Console.WriteLine("=============================================");
     Console.WriteLine("1. List All Flights");
     Console.WriteLine("2. List Boarding Gates");
